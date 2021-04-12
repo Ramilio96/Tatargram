@@ -9,6 +9,7 @@ import {
 } from "../../redux/postReducer";
 import { getPostsState } from "./post-selector";
 import { Tatargram } from "./Tatargram";
+import { storage } from "../../firebase/firebase";
 
 const TatargaramContainer = (props) => {
   useEffect(() => {
@@ -19,7 +20,12 @@ const TatargaramContainer = (props) => {
 
   return (
     <div>
-      <Tatargram {...props} currentID={currentID} setcurrentID={setcurrentID} />
+      <Tatargram
+        {...props}
+        currentID={currentID}
+        setcurrentID={setcurrentID}
+        storage={storage}
+      />
     </div>
   );
 };

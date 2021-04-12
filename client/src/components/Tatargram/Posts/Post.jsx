@@ -6,7 +6,7 @@ export const Post = ({ post, deletePost, setcurrentID }) => {
   return (
     <>
       <Card>
-        <Card.Img variant="top" src={post.file} />
+        <Card.Img variant="top" src={post.url} />
         <Card.Body>
           <Card.Title>{post.title}</Card.Title>
 

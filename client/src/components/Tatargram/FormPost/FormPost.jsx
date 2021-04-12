@@ -7,11 +7,9 @@ export const FormPost = ({
   setcurrentID,
   updatePost,
   posts,
+  storage,
 }) => {
-  const [postData, setPostData] = useState({
-    title: "",
-    message: "",
-  });
+  const [postData, setPostData] = useState({ title: "", message: "", url: "" });
   const post = currentID ? posts.find((post) => post._id === currentID) : null;
 
   useEffect(() => {
@@ -22,10 +20,15 @@ export const FormPost = ({
 
   const clearForm = () => {
     setcurrentID(0);
-    setPostData({
-      title: "",
-      message: "",
-    });
+    setPostData({ title: "", message: "", url: "" });
+  };
+
+  const handleChange = async (e) => {
+    const file = e.target.files[0];
+
+    const fileRef = storage.ref().child(file.name);
+    await fileRef.put(file);
+    setPostData({ ...postData, url: await fileRef.getDownloadURL() });
   };
 
   const handleSubmit = (e) => {
@@ -68,7 +71,9 @@ export const FormPost = ({
             }
           />
         </Form.Group>
-
+        <Form.Group controlId="formBasicTitle">
+          <Form.File onChange={handleChange} label={postData.url} custom />
+        </Form.Group>
         <Button variant="primary" type="submit" className="mt-3">
           Submit
         </Button>

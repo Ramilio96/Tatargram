@@ -12,9 +12,9 @@ router.route("/").get(async (req, res) => {
 });
 
 router.route("/").post(async (req, res) => {
-  const { title, message } = req.body;
+  const { title, message, url } = req.body;
   try {
-    const newPostMessage = new PostMessage({ title, message });
+    const newPostMessage = new PostMessage({ title, message, url });
     await newPostMessage.save();
     res.json(newPostMessage);
   } catch (error) {
@@ -34,12 +34,12 @@ router.route("/:id").get(async (req, res) => {
 
 router.route("/:id").patch(async (req, res) => {
   const { id } = req.params;
-  const { title, message } = req.body;
+  const { title, message, url } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No post with id: ${id}`);
 
-  const updatedPost = { title, message, _id: id };
+  const updatedPost = { title, message, url, _id: id };
 
   await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
   res.json(updatedPost);

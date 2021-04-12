@@ -10,6 +10,7 @@ export const Tatargram = ({
   updatePost,
   currentID,
   setcurrentID,
+  storage,
 }) => {
   return (
     <>
@@ -29,6 +30,7 @@ export const Tatargram = ({
               updatePost={updatePost}
               currentID={currentID}
               setcurrentID={setcurrentID}
+              storage={storage}
             />
           </Col>
         </Row>
